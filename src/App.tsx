@@ -5,7 +5,7 @@ import { css } from "./stiches.config"
 import { DragDropContext, DropResult } from "react-beautiful-dnd"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "./lib/global"
-import { InputInitalValues, moveItem } from "./lib/slicer/todo"
+import { moveItem } from "./lib/slicer/todo"
 
 const H1 = styled("h1", {
 	fontSize: "6.25rem",
@@ -30,7 +30,7 @@ const App: React.FC = () => {
 	
 	const input = useSelector( (state: RootState) => state.input )
 	const dispatch = useDispatch<AppDispatch>()
-	const onDragEnd = (input: InputInitalValues<string>) => (result: DropResult) => {
+	const onDragEnd = (result: DropResult) => {
 		const { source, destination } = result
 		const temp = input.todo[source.index] 
 		if (destination?.index) {
@@ -38,7 +38,7 @@ const App: React.FC = () => {
 		}
 	}
 
-	return <DragDropContext onDragEnd={onDragEnd(input)}>
+	return <DragDropContext onDragEnd={onDragEnd}>
 		<Main>
 			<H1>todos</H1>
 			<Form />
