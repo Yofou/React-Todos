@@ -12,6 +12,7 @@ Design done by [TodoMVC](https://todomvc.com/)
 * Vite (bundler)
 * React (UI library)
 * Stitches (CSS libary)
+* Redux (Global State Management)
 * react-beautiful-dnd (drag and drop libary)
 * Local Storage (for persistent storage)
 
