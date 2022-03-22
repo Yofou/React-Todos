@@ -1,4 +1,5 @@
 # React Todo Application (my first react application)
+Design done by [TodoMVC](https://todomvc.com/)
 
 ### ⭐ Features
 * Inserting Tasks
