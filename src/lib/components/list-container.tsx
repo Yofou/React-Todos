@@ -3,14 +3,14 @@ import { Droppable } from "react-beautiful-dnd"
 import { useSelector } from "react-redux"
 import { RootState } from "../global"
 import { ViewOptions } from "../slicer/view"
-import Item from "./item"
+import Item from "./list-item"
 
 const UL = styled('ul', {
 	display: "flex",
 	flexDirection: "column",
 })
 
-const ItemList: React.FC = () => {
+const ListContainer: React.FC = () => {
 	const input = useSelector( (state: RootState) => state.input )
 	const views = useSelector( (state: RootState) => state.views )
 	const todos = views === ViewOptions.ALL ? input.todo : input.todo.filter(item => {
@@ -31,4 +31,4 @@ const ItemList: React.FC = () => {
 	</Droppable>
 }
 
-export default ItemList
+export default ListContainer

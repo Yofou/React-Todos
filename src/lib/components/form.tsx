@@ -1,8 +1,8 @@
-import { styled } from "@stitches/react"
+import { styled } from "../../stiches.config"
 import { useDispatch, useSelector } from "react-redux"
 import FormFooter from "./form-footer"
 import { AppDispatch, RootState } from "../global"
-import ItemList from "./item-list"
+import ListContainer from "./list-container"
 import { pushItem, update } from "../slicer/todo"
 
 const FormContainer = styled('form', {
@@ -25,7 +25,10 @@ const InputText = styled('input', {
 	},
 	"&:focus": {
 		outline: "none"
-	}
+	},
+	"@mobile": {
+		fontSize: "1.2rem"
+	},
 })
 
 const Form: React.FC = () => {
@@ -41,7 +44,7 @@ const Form: React.FC = () => {
 
 	return <FormContainer onSubmit={onSubmit} >
 		<InputText placeholder="What needs to be done?" type="text" onChange={onInputChange} value={input.value} />
-		<ItemList />
+		<ListContainer />
 		<FormFooter />
 	</FormContainer>
 }

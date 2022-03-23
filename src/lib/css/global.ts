@@ -1,4 +1,4 @@
-import { globalCss } from "@stitches/react";
+import { globalCss } from "../../stiches.config"
 import { reset } from "stitches-reset";
 
 export const styles = globalCss({

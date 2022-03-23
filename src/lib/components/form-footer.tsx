@@ -1,13 +1,14 @@
-import { styled } from "@stitches/react"
+import { styled } from "../../stiches.config"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../global"
 import { clearDone } from "../slicer/todo"
 import { update, ViewOptions } from "../slicer/view"
 
-const FooterContainer = styled('div', {
+const FooterContainer = styled('footer', {
 	width: "100%",
 	display: "grid",
-	gridTemplateColumns: "max-content 1fr max-content 1fr max-content",
+	gridTemplateColumns: "repeat(2, minmax(0, max-content) minmax(0, 1fr)) minmax(0, max-content)",
+	gridTemplateAreas: '"count all active completed clear"',
 	gap: "1rem",
 	padding: "10px 15px",
 	borderTop: "1px solid $white300",
@@ -27,6 +28,13 @@ const FooterContainer = styled('div', {
 	"& > button.active": {
 		border: "1px solid rgba(175, 47, 47, 0.2)",
 		borderRadius: "3px"
+	},
+	"@mobile": {
+		gridTemplateRows: "1fr",
+		gridTemplateAreas: `
+			"count . . . clear"
+			". all active completed ."
+		`
 	}
 })
 
@@ -45,11 +53,11 @@ const FormFooter: React.FC = () => {
 	}
 
 	return <FooterContainer>
-		<p>{input.todo.length} item(s) left</p>
-		<button type="button" className={ view === ViewOptions.ALL ? "active" : "" } style={{ justifySelf: "end" }} onClick={onViewOptionClicked(ViewOptions.ALL)}>All</button>
-		<button type="button" className={ view === ViewOptions.ACTIVE ? "active" : "" } onClick={onViewOptionClicked(ViewOptions.ACTIVE)}>Active</button>
-		<button type="button" className={ view === ViewOptions.DONE ? "active" : "" } style={{ justifySelf: "start" }} onClick={onViewOptionClicked(ViewOptions.DONE)}>Completed</button>
-		<button type="button" onClick={clearCompelted}>Clear Completed ({ doneCount })</button>
+		<p style={{ gridArea: "count" }}>{input.todo.length} item(s) left</p>
+		<button type="button" className={ view === ViewOptions.ALL ? "active" : "" } style={{ justifySelf: "end", gridArea: "all" }} onClick={onViewOptionClicked(ViewOptions.ALL)}>All</button>
+		<button type="button" className={ view === ViewOptions.ACTIVE ? "active" : "" } style={{ gridArea: "active" }} onClick={onViewOptionClicked(ViewOptions.ACTIVE)}>Active</button>
+		<button type="button" className={ view === ViewOptions.DONE ? "active" : "" } style={{ justifySelf: "start", gridArea: "completed" }} onClick={onViewOptionClicked(ViewOptions.DONE)}>Completed</button>
+		<button style={{ gridArea: "clear" }}type="button" onClick={clearCompelted}>Clear Completed ({ doneCount })</button>
 	</FooterContainer>
 }
 

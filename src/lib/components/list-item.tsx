@@ -1,10 +1,11 @@
 import { InputValueTodoItem, removeItem, toggleItemDone } from "../slicer/todo"
-import { styled } from "@stitches/react" 
+import { styled } from "../../stiches.config"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../global"
 import { Draggable } from "react-beautiful-dnd"
+import ListItemLabel from "./list-item-label"
 
-const ListContainer = styled('div', {
+const ItemContainer = styled('div', {
 	display: "grid",
 	gridTemplateColumns: "max-content 1fr max-content",
 	alignItems: "center",
@@ -14,13 +15,12 @@ const ListContainer = styled('div', {
 	borderBottom: "1px solid $white300",
 	fontSize: "1.5rem",
 	background: "white",
-	"&.active li": {
-		color: "#d9d9d9",
-		textDecoration: "line-through"
-	}
+	"@mobile": {
+		fontSize: "1.2rem"
+	},
 })
 
-const ListButton = styled('button', {
+const ItemButton = styled('button', {
 	background: "var(--bg-color, )",
 	width: "var(--dim, 30px)",
 	height: "var(--dim, 30px)",
@@ -28,16 +28,14 @@ const ListButton = styled('button', {
 	cursor: "pointer",
 	padding: "0",
 	border: "1px solid rgba(77, 77, 77, .1)",
+	color: "#5DC2AF",
+	fontSize: "1.5rem",
+	"@mobile": {
+		fontSize: "1.2rem"
+	},
 })
 
-const ListItem = styled('li', {
-	cursor: "pointer",
-	listStyle: "none",
-	color: "#4d4d4d",
-	transition: "all 0.2s",
-})
-
-const ListItemDelete = styled('button', {
+const ItemDeleteButton = styled('button', {
 	display: "none",
 	background: "transparent",
 	border: "none",
@@ -60,21 +58,21 @@ const Item: React.FC<ItemProp> = ({ item, index }) => {
 
 	return <Draggable draggableId={item.id} index={index}>
 		{(provided) => (
-			<ListContainer 
+			<ItemContainer 
 				{...provided.draggableProps} 
 				{...provided.dragHandleProps} 
 				ref={provided.innerRef} 
 				className={item.isDone ? "active" : ""} 
 				key={item.id}
 			>
-				<ListButton type="button" onClick={onItemDoneToggle(index)} />
+				<ItemButton type="button" onClick={onItemDoneToggle(index)}>{ item.isDone ? "✓" : "" }</ItemButton>
 
-				<ListItem key={item.id}>
+				<ListItemLabel index={index}>
 					{item.value}
-				</ListItem>
+				</ListItemLabel>
 
-				<ListItemDelete type="button" onClick={onItemClick( item.id )}>×</ListItemDelete>
-			</ListContainer>
+				<ItemDeleteButton type="button" onClick={onItemClick( item.id )}>×</ItemDeleteButton>
+			</ItemContainer>
 		)} 
 	</Draggable>
 }

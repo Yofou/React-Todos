@@ -1,7 +1,6 @@
-import { styled } from "@stitches/react"
+import { styled } from "./stiches.config"
 import { styles } from "./lib/css/global"
 import Form from "./lib/components/form"
-import { css } from "./stiches.config"
 import { DragDropContext, DropResult } from "react-beautiful-dnd"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "./lib/global"
@@ -13,19 +12,28 @@ const H1 = styled("h1", {
 	marginTop: "1rem"
 })
 
+const P = styled('p', {
+	fontSize: "0.625rem",
+	marginTop: "calc(65px - 2rem)",
+	height: "max-content",
+	color: "#bfbfbf"
+})
+
 const Main = styled('main', {
 	width: "100%",
 	height: "100%",
 	display: "grid",
-	gridTemplateRows: "max-content 1fr",
+	gridTemplateRows: "max-content max-content 1fr",
 	gridTemplateColumns: "minmax(0, 550px)",
 	justifyContent: "center",
 	justifyItems: "center",
-	gap: "2rem"
+	gap: "2rem",
+	"@mobile": {
+		padding: "0 20px"
+	}
 })
 
 const App: React.FC = () => {
-	css()
 	styles()
 	
 	const input = useSelector( (state: RootState) => state.input )
@@ -42,6 +50,7 @@ const App: React.FC = () => {
 		<Main>
 			<H1>todos</H1>
 			<Form />
+			<P>Double-click to edit a todo</P>
 		</Main>
 	</DragDropContext> 
 }
