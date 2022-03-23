@@ -33,7 +33,7 @@ const App: React.FC = () => {
 	const onDragEnd = (result: DropResult) => {
 		const { source, destination } = result
 		const temp = input.todo[source.index] 
-		if (destination?.index) {
+		if (destination?.index !== undefined) {
 			dispatch( moveItem({ source: source.index, destination: destination.index, input: temp }) )
 		}
 	}

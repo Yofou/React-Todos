@@ -13,7 +13,6 @@ const ListContainer = styled('div', {
 	paddingRight: "15px",
 	borderBottom: "1px solid $white300",
 	fontSize: "1.5rem",
-	transition: "all 0.2s",
 	background: "white",
 	"&.active li": {
 		color: "#d9d9d9",
